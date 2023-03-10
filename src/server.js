@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const { json, urlencoded } = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const { connectToDatabase } = require('./utils/database')
 
 //create an app
 const app = express()
@@ -15,6 +16,7 @@ app.use(morgan('dev'))
 
 //configure dotenv path
 dotenv.config({ path: '.env' })
+connectToDatabase()
 
 //custome middlewares
 
