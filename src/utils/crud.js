@@ -7,7 +7,7 @@ This code snippet is written as a generic controller for all the models aside th
 const fetchMany = (model) => async (req, res) => {
   try {
     const chatDocument = await model.find({})
-    return res.status(200).json({ data: chatDocument })
+    res.status(200).json({ data: chatDocument })
   } catch (e) {
     console.log(e)
   }
@@ -21,10 +21,10 @@ const fetchOne = (model) => async (req, res) => {
     const chatDocument = await model.findOne({ _id: id })
     //if chat does not exist
     if (!chatDocument) {
-      return res.status(404).end()
+      res.status(404).end()
     }
     //if it the chat exists
-    return res.status(200).json({ data: chatDocument })
+    res.status(200).json({ data: chatDocument })
   } catch (e) {
     res.json(e.message)
   }
@@ -35,9 +35,9 @@ const createOne = (model) => async (req, res) => {
   try {
     const chatDocument = await model.create({ ...req.body })
     if (chatDocument) {
-      return res.json({ message: 'already created' })
+      res.json({ message: 'already created' })
     }
-    return res.status(200).json({ data: chatDocument })
+    res.status(200).json({ data: chatDocument })
   } catch (e) {
     res.status(500).json({ message: 'not found' })
   }
@@ -76,9 +76,9 @@ const deleteOne = (model) => async (req, res) => {
 }
 
 exports.controllers = (model) => ({
-  fetchOne: fetchOne(),
-  fetchMany: fetchMany(),
-  updateOne: updateOne(),
-  deleteOne: deleteOne(),
-  createOne: createOne(),
+  fetchOne: fetchOne(model),
+  fetchMany: fetchMany(model),
+  updateOne: updateOne(model),
+  deleteOne: deleteOne(model),
+  createOne: createOne(model),
 })

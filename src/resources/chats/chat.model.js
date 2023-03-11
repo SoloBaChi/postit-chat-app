@@ -1,15 +1,18 @@
 const mongoose = require('mongoose')
 
-const commentSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
+const commentSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
   },
-  comment: {
-    type: String,
-    required: true,
-  },
-})
+  { timestamps: { currentTime: () => Math.floor(Date.now()) } }
+)
 
 const chatSchema = new mongoose.Schema(
   {
@@ -22,7 +25,7 @@ const chatSchema = new mongoose.Schema(
     },
     comments: [commentSchema],
   },
-  { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } }
+  { timestamps: { currentTime: () => Math.floor(Date.now()) } }
 )
 
 const chatModel = mongoose.model('chat', chatSchema)

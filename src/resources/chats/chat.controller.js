@@ -1,4 +1,4 @@
 const { controllers } = require('../../utils/crud')
-const chatModel = require('./chat.model')
+const Chat = require('./chat.model')
 
-module.exports = controllers(chatModel)
+module.exports = controllers(Chat)
