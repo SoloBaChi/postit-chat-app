@@ -1,77 +1,69 @@
-/*
-NOTE: the term "chat" and "post" maybe used interchangeably in this code snipppet
-This code snippet is written as a generic controller for all the models aside the user mode;
-*/
-
-//get all chats or comments
+/*This is generic controller code written for all the models aside the user model
+ */
+const fetchOne = (model) => async (req, res) => {
+  try {
+    const chatDocument = await model.findOne({ _id: req.params.id })
+    if (!chatDocument) {
+      return res.status(400).json({ message: 'chat does not exist!' })
+    }
+    res.status(200).json({ data: chatDocument })
+  } catch (e) {
+    console.log(e)
+    return res.status(400).end()
+  }
+}
 const fetchMany = (model) => async (req, res) => {
   try {
-    const chatDocument = await model.find({})
-    res.status(200).json({ data: chatDocument })
+    const chatDocuments = await model.find({})
+    res.status(200).json({ data: chatDocuments })
   } catch (e) {
     console.log(e)
+    return res.status(400).end()
   }
 }
-
-//get a single chat orcomment
-const fetchOne = (model) => async (req, res) => {
-  //assign an id to target the routers id
-  const id = req.params.id
-  try {
-    const chatDocument = await model.findOne({ _id: id })
-    //if chat does not exist
-    if (!chatDocument) {
-      res.status(404).end()
-    }
-    //if it the chat exists
-    res.status(200).json({ data: chatDocument })
-  } catch (e) {
-    res.json(e.message)
-  }
-}
-
-//create a single chat or comment
 const createOne = (model) => async (req, res) => {
   try {
-    const chatDocument = await model.create({ ...req.body })
-    if (chatDocument) {
-      res.json({ message: 'already created' })
-    }
-    res.status(200).json({ data: chatDocument })
-  } catch (e) {
-    res.status(500).json({ message: 'not found' })
-  }
-}
-
-//update a single post
-const updateOne = (model) => async (req, res) => {
-  const id = req.params.id
-  try {
-    const chatDocument = await model.findByIdAndUpdate({ _id: id }, req.body, {
-      new: true,
-    })
-    if (!chatDocument) {
-      return res.status(400).end()
-    }
-    return res.status(200).json({ data: chatDocument })
+  const chatDocument = await model.create({...req.body})
+  res.status(200).json({data:chatDocument})
   } catch (e) {
     console.log(e)
-    res.json(e.message)
+    return res.status(400).end()
   }
 }
-
-//delete a single post
-const deleteOne = (model) => async (req, res) => {
-  const id = req.params.id
+const updateOne = (model) => async (req, res) => {
   try {
-    const chatDocument = await model.findOneAndRemove({ _id: id })
-    //if the document does not exist
-    if (!chatDocument) {
-      return res.status(400).end()
+    const updatedDocument = await model.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    )
+    if (!updatedDocument) {
+      return res.status(400).json({ message: 'no document found to update' })
     }
-    return res.status(200).json({ data: chatDocument })
+    res.status(200).json({ data: updatedDocument })
   } catch (e) {
-    res.json(e.message)
+    console.log(e)
+    return res.status(400).end()
+  }
+}
+const deleteOne = (model) => async (req, res) => {
+  try {
+    const removedChatDocument = await model.findOneAndRemove(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    )
+    if (!chatDocument) {
+      return res
+        .status(400)
+        .json({ message: "couldn't retrieve chat for delete" })
+    }
+    res.status(200).json({ data: removedChatDocument })
+  } catch (e) {
+    console.log(e)
+    return res.status(400).end()
   }
 }
 
@@ -79,6 +71,6 @@ exports.controllers = (model) => ({
   fetchOne: fetchOne(model),
   fetchMany: fetchMany(model),
   updateOne: updateOne(model),
-  deleteOne: deleteOne(model),
   createOne: createOne(model),
+  deleteOne: deleteOne(model),
 })

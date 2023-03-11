@@ -1,5 +1,4 @@
-const express = require('express')
-const { Router } = express
+const { Router } = require('express')
 const controllers = require('./chat.controller')
 
 const router = Router()

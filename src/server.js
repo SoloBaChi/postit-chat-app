@@ -10,7 +10,7 @@ const { connectToDatabase } = require('./utils/database')
 const app = express()
 
 //installed middlewares
-app.use(cors)
+app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
@@ -20,10 +20,14 @@ connectToDatabase()
 dotenv.config({ path: '.env' })
 
 //custome middlewares
-app.use('/api/chat', chatRouter)
+const log = (req, res, next) => {
+  console.log('logging something')
+  next()
+}
+app.use('/api/chat', log, chatRouter)
 
 //create a port
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 //listen to the app by starting the server
 const start = () => {
