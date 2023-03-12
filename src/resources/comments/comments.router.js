@@ -5,12 +5,12 @@ const router = Router()
 
 router
   .route(`/:id/comments`)
-  .get(controllers.fetchMany)
-  .post(controllers.createOne)
+  .get(controllers.fetchComments)
+  .post(controllers.createOneComment)
 
 router
-  .route(`/:id/:id/comments`)
-  .get(controllers.fetchOne)
+  .route(`/:id/comments/:id`)
+  .get(controllers.fetchOneComment)
   .put(controllers.updateOne)
   .delete(controllers.deleteOne)
 
