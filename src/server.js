@@ -4,6 +4,7 @@ const { json, urlencoded } = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const chatRouter = require('./resources/chats/chat.router')
+const commentsRouter = require('./resources/comments/comments.router')
 const { connectToDatabase } = require('./utils/database')
 
 //create an app
@@ -25,6 +26,7 @@ const log = (req, res, next) => {
   next()
 }
 app.use('/api/chat', log, chatRouter)
+app.use('/api/chat', commentsRouter)
 
 //create a port
 const PORT = process.env.PORT || 3001
