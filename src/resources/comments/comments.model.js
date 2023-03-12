@@ -13,11 +13,12 @@ const commentSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'chat',
+      //   required: true,
     },
   },
   { timestamps: { currentTime: () => Math.floor(Date.now()) } }
 )
 
-const commentModel = mongoose.model('comment', commentSchema)
+const comment = mongoose.model('comment', commentSchema)
 
-module.exports = commentModel
+module.exports = comment
