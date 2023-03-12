@@ -2,7 +2,11 @@
  */
 const fetchOne = (model) => async (req, res) => {
   try {
-    const chatDocument = await model.findOne({ _id: req.params.id })
+    const chatDocument = await model.findOne({
+      _id: req.params.id,
+      //createdBy: req.chat._id,
+    })
+
     if (!chatDocument) {
       return res.status(400).json({ message: 'chat does not exist!' })
     }
@@ -23,8 +27,11 @@ const fetchMany = (model) => async (req, res) => {
 }
 const createOne = (model) => async (req, res) => {
   try {
-  const chatDocument = await model.create({...req.body})
-  res.status(200).json({data:chatDocument})
+    const chatDocument = await model.create({
+      ...req.body,
+      //createdBy: req.chat._id,
+    })
+    res.status(200).json({ data: chatDocument })
   } catch (e) {
     console.log(e)
     return res.status(400).end()
@@ -33,7 +40,7 @@ const createOne = (model) => async (req, res) => {
 const updateOne = (model) => async (req, res) => {
   try {
     const updatedDocument = await model.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: req.params.id /* createdBy: req.chat._id */ },
       req.body,
       { new: true }
     )
@@ -48,13 +55,10 @@ const updateOne = (model) => async (req, res) => {
 }
 const deleteOne = (model) => async (req, res) => {
   try {
-    const removedChatDocument = await model.findOneAndRemove(
-      { _id: req.params.id },
-      req.body,
-      {
-        new: true,
-      }
-    )
+    const removedChatDocument = await model.findOneAndRemove({
+      _id: req.params.id,
+      //   createdBy: req.chat._id,
+    })
     if (!chatDocument) {
       return res
         .status(400)

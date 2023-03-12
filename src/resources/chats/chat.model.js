@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-const commentSchema = new mongoose.Schema(
+const commentSchema = require('../comments/comments.model')
+
+/*const commentSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -12,7 +14,7 @@ const commentSchema = new mongoose.Schema(
     },
   },
   { timestamps: { currentTime: () => Math.floor(Date.now()) } }
-)
+)*/
 
 const chatSchema = new mongoose.Schema(
   {
@@ -23,7 +25,12 @@ const chatSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    comments: [commentSchema],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: commentSchema,
+      },
+    ],
   },
   { timestamps: { currentTime: () => Math.floor(Date.now()) } }
 )

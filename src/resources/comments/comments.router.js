@@ -1,14 +1,15 @@
 const { Router } = require('express')
-const controllers = require('./chat.controller')
+const controllers = require('./comments.controller')
 
 const router = Router()
 
-//for all routes
-router.route(`/`).get(controllers.fetchMany).post(controllers.createOne)
-
-//for a route with an id
 router
-  .route(`/:id`)
+  .route(`/:id/comments`)
+  .get(controllers.fetchMany)
+  .post(controllers.createOne)
+
+router
+  .route(`/:id/:id/comments`)
   .get(controllers.fetchOne)
   .put(controllers.updateOne)
   .delete(controllers.deleteOne)
