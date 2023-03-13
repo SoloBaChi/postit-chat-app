@@ -8,14 +8,14 @@ const createOne = (model) => async (req, res) => {
   try {
     const chatDocument = await model.create({
       ...req.body,
-      createdBy: req.user._id,
+      createdBy: req.params.id,
     })
-    res.status(200).json({ data: chatDocument })
+    res.status(200).send({ data: chatDocument })
     const post = await userModel.findOne({ _id: chatDocument.createdBy })
     post.posts.unshift({
       _id: chatDocument._id,
     })
-    chat.save()
+    post.save()
   } catch (e) {
     console.log(e)
     return res.status(400).end()
@@ -95,7 +95,7 @@ const createOneComment = (model) => async (req, res) => {
       createdBy: req.params.id,
     })
 
-    res.status(200).json({ data: createdComment })
+    res.status(200).send({ data: createdComment })
     const chat = await chatModel.findOne({ _id: createdComment.createdBy })
     chat.comments.unshift({
       _id: createdComment._id,
