@@ -29,12 +29,12 @@ app.use('/api/chat', log, chatRouter)
 app.use('/api/chat', commentsRouter)
 
 //create a port
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3030
 
 //listen to the app by starting the server
 const start = () => {
   app.listen(PORT, () => {
-    console.log(`Listening at port ${PORT}`)
+    console.log(`server started on port ${PORT}`)
   })
 }
 
