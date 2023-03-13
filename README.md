@@ -1,13 +1,17 @@
 # postit-chat-app
 
 > By Solomon Joboson:
-This social media app enables users to create, update, delete and read any message with regard to communication ethics of live social media app, it allows users to make comment on a post and also retrieve the comments made by other user.
+> This social media app enables users to create, update, delete and read any message with regard to communication ethics of live social media app, it allows users to make comment on a post and also retrieve the comments made by other user.
 
 ## Resources
 
 - [Nodejs](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
+
+## Other Resources:
+
+- [dbModelling](https://app.dbdesigner.net/designer/schema/607319)
 
 ## Project Descripton:
 
