@@ -17,6 +17,10 @@ const chatSchema = new mongoose.Schema(
         ref: 'comment',
       },
     ],
+    createdBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
+    },
   },
   { timestamps: { currentTime: () => Math.floor(Date.now()) } }
 )
