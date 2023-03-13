@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const { json, urlencoded } = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const userRouter = require('./resources/user/user.router')
 const chatRouter = require('./resources/chats/chat.router')
 const commentsRouter = require('./resources/comments/comments.router')
 const { connectToDatabase } = require('./utils/database')
@@ -25,6 +26,8 @@ const log = (req, res, next) => {
   console.log('logging something')
   next()
 }
+
+app.use('/api', userRouter)
 app.use('/api/chat', log, chatRouter)
 app.use('/api/chat', commentsRouter)
 
