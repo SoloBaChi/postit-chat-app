@@ -13,11 +13,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    posts: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'chat',
+      },
+    ],
     settings: {
       avatar: {
-        type: String,
-        default:
-          'https://api.dicebear.com/5.x/identicon/svg?seed=solobachi02-gqk9o-gmail-1tqao-com&size=200&radius=50',
+        type: String
       },
       theme: {
         type: String,

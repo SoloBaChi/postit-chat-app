@@ -1,10 +1,11 @@
 const User = require('./user.model')
+const generateRandomAvatar = require('../data/generate.avatar')
 
-exports.userDetails = (req, res) => {
+const userDetails = (req, res) => {
   res.status(200).json({ data: req.user })
 }
 
-exports.updateUserDetails = async (req, res) => {
+const updateUserDetails = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.user._id, req.body, {
       new: true,
@@ -14,4 +15,19 @@ exports.updateUserDetails = async (req, res) => {
     console.log(e)
     res.status(404).end()
   }
+}
+
+// const createAvatarStyle = async (req, res) => {
+//   try {
+//     const avatarImage =
+//   } catch (e) {
+//     console.log(e.message)
+//     res.status(400).end()
+//   }
+// }
+
+//exporting the controllers
+exports.userControllers = {
+  userDetails: userDetails,
+  updateUserDetails: updateUserDetails,
 }
