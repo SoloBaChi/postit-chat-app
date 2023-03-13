@@ -11,7 +11,9 @@
 
 ## Other Resources:
 
-- [dbModelling](https://app.dbdesigner.net/designer/schema/607319)
+- [Data_Modelling](https://app.dbdesigner.net/designer/schema/607319)
+- [API_Live_link](https://postit-chat-app-solobachi.onrender.com)
+- [API_Documentation](https://heartfelt-eclair-84902e.netlify.app)
 
 ## Project Descripton:
 
