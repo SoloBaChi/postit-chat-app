@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const { json, urlencoded } = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const { signUp, signIn, protect } = require('./utils/auth')
 const userRouter = require('./resources/user/user.router')
 const chatRouter = require('./resources/chats/chat.router')
 const commentsRouter = require('./resources/comments/comments.router')
@@ -26,10 +27,14 @@ const log = (req, res, next) => {
   console.log('logging something')
   next()
 }
+//authentication and authorization middlewares
+app.post('/signup', signUp)
+app.post('/signin', signIn)
 
-app.use('/api', userRouter)
+app.use('/api', protect)
+app.use('/api/user', userRouter)
 app.use('/api/chat', log, chatRouter)
-app.use('/api/chat', commentsRouter)
+app.use('/api/comment', commentsRouter)
 
 //create a port
 const PORT = process.env.PORT || 3030
