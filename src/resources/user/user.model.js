@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
     ],
     settings: {
       avatar: {
-        type: String
+        type: String,
       },
       theme: {
         type: String,
@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
         type: Boolean,
         required: true,
         default: false,
+      },
+      username: {
+        type: String,
+        default: '@username#45',
       },
     },
   },
