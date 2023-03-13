@@ -1,13 +1,21 @@
 //for the API with the endpoint / and /:id end points
 //This a generic controller for all the models and routers
 const chatModel = require('../resources/chats/chat.model')
+const userModel = require('../resources/user/user.model')
 
+//create a chat or post
 const createOne = (model) => async (req, res) => {
   try {
     const chatDocument = await model.create({
       ...req.body,
+      createdBy: req.user._id,
     })
     res.status(200).json({ data: chatDocument })
+    const post = await userModel.findOne({ _id: chatDocument.createdBy })
+    post.posts.unshift({
+      _id: chatDocument._id,
+    })
+    chat.save()
   } catch (e) {
     console.log(e)
     return res.status(400).end()
@@ -91,7 +99,6 @@ const createOneComment = (model) => async (req, res) => {
     const chat = await chatModel.findOne({ _id: createdComment.createdBy })
     chat.comments.unshift({
       _id: createdComment._id,
-      message: createdComment.message,
     })
     chat.save()
   } catch (e) {
