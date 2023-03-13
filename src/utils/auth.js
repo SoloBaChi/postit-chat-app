@@ -31,14 +31,18 @@ exports.signUp = async (req, res) => {
   if (!req.body.email || !req.body.password) {
     return res.status(404).send({ message: 'need email and password' })
   }
+  try {
+    const user = await User.create(req.body)
+    const token = newToken(user)
+    const getAvatar = await generateRandomAvatar(user.email)
+    user.settings.avatar = getAvatar
+    const createdImageTag = createImageTag(getAvatar, user.email)
 
-  const user = await User.create(req.body)
-  const token = newToken(user)
-  const getAvatar = await generateRandomAvatar(user.email)
-  user.settings.avatar = getAvatar
-  const createdImageTag = createImageTag(getAvatar, user.email)
-
-  return res.status(201).send({ token, user, createdImageTag })
+    return res.status(201).send({ token, user, createdImageTag })
+  } catch (e) {
+    console.log(e.message)
+    res.status(500).json({ message: 'server error' })
+  }
 }
 
 //signin a user  , if the user has created an account

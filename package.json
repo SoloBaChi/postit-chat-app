@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/SoloBaChi/postit-chat-app/issues"
   },
+  "engines": {
+    "node": ">=18 <19"
+  },
   "homepage": "https://github.com/SoloBaChi/postit-chat-app#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",

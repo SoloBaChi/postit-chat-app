@@ -4,12 +4,13 @@ const commentSchema = require('../comments/comments.model')
 
 const chatSchema = new mongoose.Schema(
   {
-    description: {
+    title: {
       type: String,
       required: true,
     },
-    image: {
+    body: {
       type: String,
+      required: true,
     },
     comments: [
       {
