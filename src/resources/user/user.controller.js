@@ -2,8 +2,14 @@ const User = require('./user.model')
 const generateRandomAvatar = require('../data/generate.avatar')
 
 //creating a user account
-const userDetails = (req, res) => {
-  res.status(200).json({ data: req.user })
+const userDetails = async (req, res) => {
+  try {
+    const allUsers = await User.find({})
+    res.status(200).json({ data: allUsers })
+  } catch (e) {
+    console.log(e.message)
+    res.status(400).end
+  }
 }
 
 const updateUserDetails = async (req, res) => {

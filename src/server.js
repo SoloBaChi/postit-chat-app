@@ -30,11 +30,11 @@ const log = (req, res, next) => {
 //authentication and authorization middlewares
 app.post('/signup', signUp)
 app.post('/signin', signIn)
+app.use('/api/users', userRouter)
 
 app.use('/api', protect)
-app.use('/api/user', userRouter)
-app.use('/api/chat', log, chatRouter)
-app.use('/api/comment', commentsRouter)
+app.use('/api/chats', log, chatRouter)
+app.use('/api/chats', commentsRouter)
 
 //create a port
 const PORT = process.env.PORT || 3030
