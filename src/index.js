@@ -1,4 +1,4 @@
-const { start } = require("./server");
+const { start } = require('./server')
 
 //run start
-start();
+start()

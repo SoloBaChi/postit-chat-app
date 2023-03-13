@@ -89,9 +89,11 @@ const createOneComment = (model) => async (req, res) => {
 
     res.status(200).json({ data: createdComment })
     const chat = await chatModel.findOne({ _id: createdComment.createdBy })
-    chat.comments.unshift(createdComment._id)
+    chat.comments.unshift({
+      _id: createdComment._id,
+      message: createdComment.message,
+    })
     chat.save()
-    res.status(200).json(chat)
   } catch (e) {
     console.log(e)
     return res.status(400).end()
