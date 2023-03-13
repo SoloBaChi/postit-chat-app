@@ -1,6 +1,7 @@
 const jsonwebtoken = require('jsonwebtoken')
 const User = require('../resources/user/user.model')
 const authConfig = require('../config/auth.config')
+const generateRandomAvatar = require('../resources/data/generate.avatar')
 
 //create a token
 const newToken = (user) => {
@@ -18,6 +19,12 @@ const verifyToken = (token) =>
     })
   })
 
+//create an image tag when a user signs up
+const createImageTag = (src, alt) => {
+  const imgTag = `<img src = " ${src} " alt = " ${alt} " />`
+  return imgTag
+}
+
 //signUp a user
 exports.signUp = async (req, res) => {
   //if the email or the password does not exist
@@ -27,7 +34,11 @@ exports.signUp = async (req, res) => {
 
   const user = await User.create(req.body)
   const token = newToken(user)
-  return res.status(201).send({ token, user })
+  const getAvatar = await generateRandomAvatar(user.email)
+  user.settings.avatar = getAvatar
+  const createdImageTag = createImageTag(getAvatar, user.email)
+
+  return res.status(201).send({ token, user, createdImageTag })
 }
 
 //signin a user  , if the user has created an account

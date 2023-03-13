@@ -1,9 +1,11 @@
 const express = require('express')
-const { userDetails, updateUserDetails } = require('./user.controller')
+const { userControllers } = require('./user.controller')
 const { Router } = express
 const router = Router()
 
-router.get('/', userDetails)
-router.put('/', updateUserDetails)
+router
+  .route('/')
+  .get(userControllers.userDetails)
+  .put(userControllers.updateUserDetails)
 
 module.exports = router
