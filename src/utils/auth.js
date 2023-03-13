@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken')
-const User = require('../resources/models/user/user.model')
+const User = require('../resources/user/user.model')
 const authConfig = require('../config/auth.config')
 
 //create a token
