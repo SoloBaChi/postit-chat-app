@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const { json, urlencoded } = require('body-parser')
-const cors = require('cors')
+// const cors = require('cors')
 const dotenv = require('dotenv')
 const { signUp, signIn, protect } = require('./utils/auth')
 const userRouter = require('./resources/user/user.router')
@@ -13,7 +13,7 @@ const { connectToDatabase } = require('./utils/database')
 const app = express()
 
 //installed middlewares
-app.use(cors())
+// app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
