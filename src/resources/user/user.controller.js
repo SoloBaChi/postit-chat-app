@@ -5,7 +5,7 @@ const generateRandomAvatar = require('../data/generate.avatar')
 const userDetails = async (req, res) => {
   try {
     const allUsers = await User.find({})
-    res.status(200).json({ data: allUsers })
+    res.status(200).json({ data: req.user, allUsers })
   } catch (e) {
     console.log(e.message)
     res.status(400).end
